@@ -1,31 +1,31 @@
-async function getStartGame() {
-  const startGame = new URL("startGame.html", import.meta.url);
-  return fetch(startGame);
-};
+import { mainMenuStyle } from "./styles.js";
+import { mainMenu, startGame } from "./pages.js";
+
 
 async function handleRequest(request) {
   const { pathname } = new URL(request.url);
 
-  // if (pathname.startsWith("/startGame.html")) {
-  //   const startGame = new URL("startGame.html", import.meta.url);
-  //   return fetch(startGame);
-  // };
+  let style;
+  let body;
 
-  if (pathname.startsWith("/styles/style.css")) {
-    const style = new URL("styles/style.css", import.meta.url);
-    return fetch(style);
+  if (pathname.startsWith("/startGame")) {
+    style = "";
+    body = startGame;
+  } else {
+    style = mainMenuStyle;
+    body = mainMenu;
   };
 
   return new Response(
     `<html>
       <head>
         <title>Companions</title>
-        <link rel="stylesheet" href="styles/style.css" />
+        <style>
+          ${ style }
+        </style>
       </head>
       <body>
-        <h1 class="companionsTitle">Welcome to Companions!</h1>
-        <h4>Main Menu</h4>
-        ${getStartGame()}
+        ${ body }
       </body>
     </html>`,
     {

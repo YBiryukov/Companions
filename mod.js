@@ -1,5 +1,5 @@
-async function handleRequest(request) {
-  const pathname = new URL(request.url);
+function handleRequest(request) {
+  const { pathname } = new URL(request.url);
 
   if (pathname.startsWith("/style.css")) {
     const style = new URL("style.css", import.meta.url);
